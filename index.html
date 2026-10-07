@@ -1,353 +1,191 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guia de Estudo - Azure DP-900</title>
-    <style>
-        :root {
-            --bg-color: #0f1117;
-            --card-bg: #161b22;
-            --border-color: #30363d;
-            --text-primary: #c9d1d9;
-            --text-heading: #f0f6fc;
-            --accent-color: #58a6ff;
-            --accent-hover: #79c0ff;
-            --badge-bg: #1f6feb33;
-            --badge-border: #388bfd66;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Guia de Estudo - Azure DP-900</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2F5F9;--surface:#FFFFFF;--ink:#12233A;--muted:#52627A;--line:#D5DEE9;
+  --d1:#0F6CBD;--d2:#0E8A7D;--d3:#B8700A;--d4:#7A3E9D;--accent:#0F6CBD;--on:#fff;
+  --sans:"IBM Plex Sans",system-ui,sans-serif;--disp:"Bricolage Grotesque","IBM Plex Sans",system-ui,sans-serif;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0C1623;--surface:#13202F;--ink:#E4ECF6;--muted:#9AABC1;--line:#27384D;
+  --d1:#5AB0FF;--d2:#4CD0BE;--d3:#F0B35A;--d4:#C79BEA;--accent:#5AB0FF;--on:#08121D}}
+:root[data-theme="dark"]{
+  --bg:#0C1623;--surface:#13202F;--ink:#E4ECF6;--muted:#9AABC1;--line:#27384D;
+  --d1:#5AB0FF;--d2:#4CD0BE;--d3:#F0B35A;--d4:#C79BEA;--accent:#5AB0FF;--on:#08121D}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font:400 1rem/1.65 var(--sans);padding:2.5rem 1.1rem 4rem}
+main{max-width:860px;margin:0 auto}
+h1{font:800 clamp(2.1rem,7vw,3.4rem)/1.04 var(--disp);letter-spacing:-.03em}
+h2{font:800 1.4rem/1.25 var(--disp);letter-spacing:-.015em;margin-bottom:.9rem}
+.lede{color:var(--accent);font-weight:500;margin-top:.8rem}
+section{margin-top:3rem}
+a{color:var(--accent);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
+.bar{display:flex;gap:4px;height:92px}
+.seg{flex:var(--w) 1 0;border:0;border-radius:8px;background:var(--c);color:var(--on);cursor:pointer;
+  font:800 1.4rem var(--disp);text-align:left;padding:.7rem .8rem;display:flex;flex-direction:column;justify-content:space-between;
+  min-width:0;transition:flex-grow .35s ease,filter .2s}
+.seg small{font:500 .72rem var(--sans)}
+.seg[aria-pressed="true"]{flex-grow:calc(var(--w)*1.7)}
+.seg:not([aria-pressed="true"]){filter:saturate(.55) brightness(.92)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .seg{color:#fff}}
+.panel{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:10px;padding:1.2rem 1.3rem;margin-top:.8rem}
+.panel h3{font:800 1.15rem var(--disp);margin-bottom:.35rem}
+.panel p{color:var(--muted)}
+.panel ul{margin:.8rem 0 0;padding:0;list-style:none}
+.panel li{display:flex;gap:.6rem;align-items:flex-start;padding:.25rem 0}
+.panel input{margin-top:.4rem;width:1.05rem;height:1.05rem;accent-color:var(--c)}
+.prog{margin-top:.9rem;font-size:.9rem}
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            line-height: 1.6;
-            padding: 2rem 1rem;
-        }
+.list{list-style:none;padding:0}
+.list li{padding:.75rem 0;border-top:1px solid var(--line)}
+.list li:last-child{border-bottom:1px solid var(--line)}
+.list strong{color:var(--ink)}
 
-        .container {
-            max-width: 850px;
-            margin: 0 auto;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2.5rem;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-        }
+ol.steps{list-style:none;padding:0;counter-reset:s;border-left:2px solid var(--line);margin:1.4rem 0 1.4rem .9rem}
+.steps li{counter-increment:s;position:relative;padding:0 0 1.1rem 1.7rem}
+.steps li:last-child{padding-bottom:0}
+.steps li::before{content:counter(s);position:absolute;left:-.95rem;top:0;width:1.6rem;height:1.6rem;border-radius:50%;
+  background:var(--accent);color:var(--bg);font:800 .85rem/1.6rem var(--disp);text-align:center}
 
-        header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 1.5rem;
-        }
+h2.sub{margin-top:2.4rem}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:.93rem}
+th,td{text-align:left;padding:.8rem 1rem;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-weight:600;color:var(--muted);font-size:.85rem}
+.st{display:inline-block;padding:.1rem .6rem;border-radius:99px;font-size:.82rem;font-weight:600;border:1px solid currentColor}
+.on{color:var(--d2)}.off{color:var(--muted)}.lim{color:var(--d3)}
 
-        header h1 {
-            color: var(--text-heading);
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.5px;
-        }
-
-        header p {
-            color: var(--accent-color);
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-
-        section {
-            margin-bottom: 2rem;
-        }
-
-        h2 {
-            color: var(--text-heading);
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            border-left: 3px solid var(--accent-color);
-            padding-left: 0.75rem;
-        }
-
-        ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        li {
-            margin-bottom: 0.75rem;
-            position: relative;
-            padding-left: 1.25rem;
-        }
-
-        li::before {
-            content: "▪";
-            position: absolute;
-            left: 0;
-            color: var(--accent-color);
-        }
-
-        strong {
-            color: var(--text-heading);
-        }
-
-        a {
-            color: var(--accent-color);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        a:hover {
-            color: var(--accent-hover);
-            text-decoration: underline;
-        }
-
-        .grid-cards {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .card-item {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 1rem;
-        }
-
-        .card-item strong {
-            display: block;
-            margin-bottom: 0.25rem;
-            color: var(--accent-color);
-        }
-
-        .step-list {
-            counter-reset: step-counter;
-        }
-
-        .step-list li {
-            counter-increment: step-counter;
-            padding-left: 2rem;
-        }
-
-        .step-list li::before {
-            content: counter(step-counter);
-            position: absolute;
-            left: 0;
-            background: var(--badge-bg);
-            border: 1px solid var(--badge-border);
-            color: var(--accent-color);
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            font-weight: bold;
-        }
-
-        .table-container {
-            width: 100%;
-            overflow-x: auto;
-            margin-top: 1rem;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 0.9rem;
-        }
-
-        th, td {
-            padding: 0.75rem 1rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        th {
-            background: rgba(255, 255, 255, 0.03);
-            color: var(--text-heading);
-            font-weight: 600;
-        }
-
-        td {
-            color: var(--text-primary);
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border-color);
-            font-size: 0.85rem;
-            color: #8b949e;
-        }
-
-        @media (min-width: 600px) {
-            .grid-cards {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-    </style>
+footer{margin-top:3.5rem;padding-top:1rem;border-top:1px solid var(--line);text-align:center;color:var(--muted);font-size:.88rem}
+@media (prefers-reduced-motion:reduce){.seg{transition:none}}
+</style>
 </head>
 <body>
+<main>
 
-    <div class="container">
-        <header>
-            <h1>Guia Completo: Azure DP-900</h1>
-            <p>Data Fundamentals — Resumo e Diretrizes do Exame</p>
-        </header>
+<header>
+  <h1>Guia Completo: Azure DP-900</h1>
+  <p class="lede">Data Fundamentals — Resumo e Diretrizes do Exame</p>
+</header>
 
-        <section>
-            <h2>🎯 1. Visão Geral do Exame</h2>
-            <ul>
-                <li><strong>Objetivo:</strong> Validar o conhecimento sobre conceitos fundamentais de dados e serviços do Microsoft Azure.</li>
-                <li><strong>Público-alvo:</strong> Iniciantes em computação em nuvem. Excelente base para carreiras de Engenharia ou Administração de Dados.</li>
-                <li><strong>Aprovação:</strong> Pontuação mínima de <strong>700 pontos</strong>.</li>
-                <li><strong>Escopo:</strong> Focado em recursos de Disponibilidade Geral (GA).</li>
-            </ul>
-        </section>
+<section>
+  <h2>🎯 1. Visão Geral do Exame</h2>
+  <ul class="list">
+    <li><strong>Objetivo:</strong> Validar o conhecimento sobre conceitos fundamentais de dados e serviços do Microsoft Azure.</li>
+    <li><strong>Público-alvo:</strong> Iniciantes em computação em nuvem. Excelente base para carreiras de Engenharia ou Administração de Dados.</li>
+    <li><strong>Aprovação:</strong> Pontuação mínima de <strong>700 pontos</strong>.</li>
+    <li><strong>Escopo:</strong> Focado em recursos de Disponibilidade Geral (GA).</li>
+  </ul>
+</section>
 
-        <section>
-            <h2>📊 2. Habilidades Medidas & Pesos</h2>
-            <div class="grid-cards">
-                <div class="card-item">
-                    <strong>Conceitos Básicos (25% - 30%)</strong>
-                    Dados estruturados, semiestruturados e não estruturados; OLTP vs. OLAP; papéis de DBA, engenheiro e analista.
-                </div>
-                <div class="card-item">
-                    <strong>Relacionais no Azure (20% - 25%)</strong>
-                    Conceitos relacionais, normalização, SQL básico, objetos e família SQL do Azure / bancos open-source.
-                </div>
-                <div class="card-item">
-                    <strong>Não Relacionais (15% - 20%)</strong>
-                    Armazenamento do Azure (Blobs, Files, Tables) e recursos/APIs do Azure Cosmos DB.
-                </div>
-                <div class="card-item">
-                    <strong>Cargas de Análise (25% - 30%)</strong>
-                    Análise em larga escala (Databricks, Microsoft Fabric), lote vs. streaming e visualização no Power BI.
-                </div>
-            </div>
-        </section>
+<section>
+  <h2>📊 2. Habilidades Medidas &amp; Pesos</h2>
+  <div class="bar" id="bar" role="group" aria-label="Peso de cada área no exame"></div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+</section>
 
-        <section>
-            <h2>🔍 3. Resumo Técnico dos Tópicos</h2>
-            <ul>
-                <li><strong>Conceitos de Dados:</strong> Distinção clara entre formatos e finalidades de cargas transacionais versus analíticas.</li>
-                <li><strong>Relacionais no Azure:</strong> Domínio do Banco de Dados SQL do Azure, instâncias gerenciadas e SQL Server em VMs.</li>
-                <li><strong>Não Relacionais no Azure:</strong> Arquitetura do Azure Storage e ecossistema NoSQL com Cosmos DB.</li>
-                <li><strong>Análise (Analytics):</strong> Processamento massivo de dados, Data Lakes, Data Warehouses e pipelines em tempo real.</li>
-            </ul>
-        </section>
+<section>
+  <h2>🔍 3. Resumo Técnico dos Tópicos</h2>
+  <ul class="list">
+    <li><strong>Conceitos de Dados:</strong> Distinção clara entre formatos e finalidades de cargas transacionais versus analíticas.</li>
+    <li><strong>Relacionais no Azure:</strong> Domínio do Banco de Dados SQL do Azure, instâncias gerenciadas e SQL Server em VMs.</li>
+    <li><strong>Não Relacionais no Azure:</strong> Arquitetura do Azure Storage e ecossistema NoSQL com Cosmos DB.</li>
+    <li><strong>Análise (Analytics):</strong> Processamento massivo de dados, Data Lakes, Data Warehouses e pipelines em tempo real.</li>
+  </ul>
+</section>
 
-        <section>
-            <h2>🛠️ 4. Recursos de Estudo Oficiais</h2>
-            <ul>
-                <li><strong>Microsoft Learn:</strong> Módulos e trilhas de aprendizagem oficiais e gratuitas.</li>
-                <li><strong>Documentação Técnica:</strong> Manuais oficiais do Azure SQL, Cosmos DB, Storage e Power BI.</li>
-                <li><strong>Comunidades:</strong> Fóruns do Microsoft Q&A e Tech Community.</li>
-            </ul>
-        </section>
+<section>
+  <h2>🛠️ 4. Recursos de Estudo Oficiais</h2>
+  <ul class="list">
+    <li><strong>Microsoft Learn:</strong> Módulos e trilhas de aprendizagem oficiais e gratuitas.</li>
+    <li><strong>Documentação Técnica:</strong> Manuais oficiais do Azure SQL, Cosmos DB, Storage e Power BI.</li>
+    <li><strong>Comunidades:</strong> Fóruns do Microsoft Q&amp;A e Tech Community.</li>
+  </ul>
+</section>
 
-        <section>
-            <h2>📝 5. Como Agendar & Regras (Pearson VUE)</h2>
-            <ul>
-                <li><strong>Provedores:</strong> Pearson VUE (público geral) ou Certiport (acadêmicos/MOS).</li>
-                <li><strong>Modalidade:</strong> Presencial (Centro de Testes) ou Online (exige verificação prévia do sistema).</li>
-                <li><strong>Regras:</strong> Máximo de 2 exames agendados simultaneamente; antecedência máxima de 90 dias.</li>
-            </ul>
-            <br>
-            <ol class="step-list">
-                <li>Acesse o portal da certificação e escolha agendar com a Pearson VUE.</li>
-                <li>Entre com sua conta Microsoft e verifique se o seu <strong>nome legal</strong> confere com seu documento oficial.</li>
-                <li>Preencha os dados e finalize o agendamento no site da Pearson VUE.</li>
-            </ol>
-            <br>
-            <ul>
-                <li><strong>Atenção:</strong> Solicite adaptações de acessibilidade (tempo extra) <em>antes</em> de agendar.</li>
-                <li><strong>Preço Padrão:</strong> US$ 59.</li>
-            </ul>
-        </section>
+<section>
+  <h2>📝 5. Como Agendar &amp; Regras (Pearson VUE)</h2>
+  <ul class="list">
+    <li><strong>Provedores:</strong> Pearson VUE (público geral) ou Certiport (acadêmicos/MOS).</li>
+    <li><strong>Modalidade:</strong> Presencial (Centro de Testes) ou Online (exige verificação prévia do sistema).</li>
+    <li><strong>Regras:</strong> Máximo de 2 exames agendados simultaneamente; antecedência máxima de 90 dias.</li>
+  </ul>
+  <ol class="steps">
+    <li>Acesse o portal da certificação e escolha agendar com a Pearson VUE.</li>
+    <li>Entre com sua conta Microsoft e verifique se o seu <strong>nome legal</strong> confere com seu documento oficial.</li>
+    <li>Preencha os dados e finalize o agendamento no site da Pearson VUE.</li>
+  </ol>
+  <ul class="list">
+    <li><strong>Atenção:</strong> Solicite adaptações de acessibilidade (tempo extra) <em>antes</em> de agendar.</li>
+    <li><strong>Preço Padrão:</strong> US$ 59.</li>
+  </ul>
+</section>
 
-        <section>
-            <h2>💰 6. Descontos e Vouchers</h2>
-            <ul>
-                <li><strong>Desconto Acadêmico:</strong> Estudantes com e-mail institucional validado ganham abatimento direto no checkout.</li>
-                <li><strong>Campanhas:</strong> Anteriormente via Virtual Training Days (encerrado); atualmente com oportunidades de 50% via Cloud Skills Challenges (sorteios ou cotas limitadas) e o programa corporativo ESI.</li>
-            </ul>
-        </section>
+<section>
+  <h2>💰 6. Descontos e Vouchers</h2>
+  <ul class="list">
+    <li><strong>Desconto Acadêmico:</strong> Estudantes com e-mail institucional validado ganham abatimento direto no checkout.</li>
+    <li><strong>Campanhas:</strong> Anteriormente via Virtual Training Days (encerrado); atualmente com oportunidades de 50% via Cloud Skills Challenges (sorteios ou cotas limitadas) e o programa corporativo ESI.</li>
+  </ul>
 
-        <section>
-            <h2>📈 Histórico de Cupons e Descontos da Microsoft</h2>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Período (Ano / Mês)</th>
-                            <th>Campanha / Programa</th>
-                            <th>Desconto Liberado</th>
-                            <th>Status Atual</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Até Março / 2023</td>
-                            <td>Microsoft Virtual Training Days</td>
-                            <td><strong>100% OFF</strong> (Voucher universal)</td>
-                            <td>Encerrado</td>
-                        </tr>
-                        <tr>
-                            <td>Anos anteriores a 2023</td>
-                            <td>Microsoft Ignite & Build Challenges</td>
-                            <td><strong>100% OFF</strong> (Desafio concluído)</td>
-                            <td>Substituído / Modificado</td>
-                        </tr>
-                        <tr>
-                            <td>2023 – Presente</td>
-                            <td>Cloud Skills Challenges & Eventos de IA</td>
-                            <td><strong>50% OFF</strong> (Sorteios ou cotas limitadas)</td>
-                            <td>Ativo (Restrito)</td>
-                        </tr>
-                        <tr>
-                            <td>Contínuo</td>
-                            <td>Programa ESI (Enterprise Skills Initiative)</td>
-                            <td><strong>50% a 100% OFF</strong> (Corporativo)</td>
-                            <td>Ativo (Exclusivo Empresas)</td>
-                        </tr>
-                        <tr>
-                            <td>Contínuo</td>
-                            <td>Desconto Acadêmico (Estudantes)</td>
-                            <td><strong>Desconto parcial direto</strong> no checkout</td>
-                            <td>Ativo (Validação Institucional)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+  <h2 class="sub">📈 Histórico de Cupons e Descontos da Microsoft</h2>
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Período (Ano / Mês)</th><th>Campanha / Programa</th><th>Desconto Liberado</th><th>Status Atual</th></tr></thead>
+    <tbody>
+      <tr><td>Até Março / 2023</td><td>Microsoft Virtual Training Days</td><td><strong>100% OFF</strong> (Voucher universal)</td><td><span class="st off">Encerrado</span></td></tr>
+      <tr><td>Anos anteriores a 2023</td><td>Microsoft Ignite &amp; Build Challenges</td><td><strong>100% OFF</strong> (Desafio concluído)</td><td><span class="st off">Substituído / Modificado</span></td></tr>
+      <tr><td>2023 – Presente</td><td>Cloud Skills Challenges &amp; Eventos de IA</td><td><strong>50% OFF</strong> (Sorteios ou cotas limitadas)</td><td><span class="st lim">Ativo (Restrito)</span></td></tr>
+      <tr><td>Contínuo</td><td>Programa ESI (Enterprise Skills Initiative)</td><td><strong>50% a 100% OFF</strong> (Corporativo)</td><td><span class="st lim">Ativo (Exclusivo Empresas)</span></td></tr>
+      <tr><td>Contínuo</td><td>Desconto Acadêmico (Estudantes)</td><td><strong>Desconto parcial direto</strong> no checkout</td><td><span class="st on">Ativo (Validação Institucional)</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
 
-        <section>
-            <h2>🔗 Links Úteis & Referências</h2>
-            <ul>
-                <li><strong>Edital Oficial (Study Guide):</strong> <a href="https://learn.microsoft.com/pt-br/credentials/certifications/resources/study-guides/dp-900" target="_blank">Acessar Study Guide DP-900</a></li>
-                <li><strong>Página de Agendamento:</strong> <a href="https://learn.microsoft.com/pt-br/credentials/certifications/azure-data-fundamentals/?practice-assessment-type=certification" target="_blank">Agendar Exame DP-900</a></li>
-                <li><strong>Catálogo de Eventos/Descontos:</strong> <a href="https://www.microsoft.com/en-us/events/search-catalog?scenario=events" target="_blank">Microsoft Events Search</a></li>
-                <li><strong>Roadmap de Certificações (PDF):</strong> <a href="https://arch-center.azureedge.net/Credentials/Certification-Poster_en-us.pdf" target="_blank">Baixar Certification Poster</a></li>
-            </ul>
-        </section>
+<section>
+  <h2>🔗 Links Úteis &amp; Referências</h2>
+  <ul class="list">
+    <li><strong>Edital Oficial (Study Guide):</strong> <a href="https://learn.microsoft.com/pt-br/credentials/certifications/resources/study-guides/dp-900" target="_blank" rel="noopener">Acessar Study Guide DP-900</a></li>
+    <li><strong>Página de Agendamento:</strong> <a href="https://learn.microsoft.com/pt-br/credentials/certifications/azure-data-fundamentals/?practice-assessment-type=certification" target="_blank" rel="noopener">Agendar Exame DP-900</a></li>
+    <li><strong>Catálogo de Eventos/Descontos:</strong> <a href="https://www.microsoft.com/en-us/events/search-catalog?scenario=events" target="_blank" rel="noopener">Microsoft Events Search</a></li>
+    <li><strong>Roadmap de Certificações (PDF):</strong> <a href="https://arch-center.azureedge.net/Credentials/Certification-Poster_en-us.pdf" target="_blank" rel="noopener">Baixar Certification Poster</a></li>
+  </ul>
+</section>
 
-        <footer>
-            Preparação para Exame Microsoft Azure Data Fundamentals (DP-900)
-        </footer>
-    </div>
+<footer>Preparação para Exame Microsoft Azure Data Fundamentals (DP-900)</footer>
+</main>
 
+<script>
+const areas=[
+ {n:"Conceitos Básicos",r:"25% - 30%",w:27.5,c:"var(--d1)",d:"Dados estruturados, semiestruturados e não estruturados; OLTP vs. OLAP; papéis de DBA, engenheiro e analista.",t:["Dados estruturados, semiestruturados e não estruturados","OLTP vs. OLAP","Papéis de DBA, engenheiro e analista"]},
+ {n:"Relacionais no Azure",r:"20% - 25%",w:22.5,c:"var(--d2)",d:"Conceitos relacionais, normalização, SQL básico, objetos e família SQL do Azure / bancos open-source.",t:["Conceitos relacionais e normalização","SQL básico e objetos","Família SQL do Azure / bancos open-source"]},
+ {n:"Não Relacionais",r:"15% - 20%",w:17.5,c:"var(--d3)",d:"Armazenamento do Azure (Blobs, Files, Tables) e recursos/APIs do Azure Cosmos DB.",t:["Armazenamento do Azure (Blobs, Files, Tables)","Recursos/APIs do Azure Cosmos DB"]},
+ {n:"Cargas de Análise",r:"25% - 30%",w:27.5,c:"var(--d4)",d:"Análise em larga escala (Databricks, Microsoft Fabric), lote vs. streaming e visualização no Power BI.",t:["Análise em larga escala (Databricks, Microsoft Fabric)","Lote vs. streaming","Visualização no Power BI"]}
+];
+let sel=0,done={};
+try{done=JSON.parse(localStorage.getItem("dp900")||"{}")}catch(e){}
+const save=()=>{try{localStorage.setItem("dp900",JSON.stringify(done))}catch(e){}};
+const bar=document.getElementById("bar"),panel=document.getElementById("panel");
+function draw(){
+  bar.innerHTML=areas.map((a,i)=>`<button class="seg" style="--w:${a.w};--c:${a.c}" aria-pressed="${i===sel}" data-i="${i}">${a.r}<small>${a.n}</small></button>`).join("");
+  const a=areas[sel],n=a.t.filter((_,j)=>done[sel+"-"+j]).length;
+  panel.style.setProperty("--c",a.c);
+  panel.innerHTML=`<h3>${a.n} (${a.r})</h3><p>${a.d}</p><ul>${a.t.map((t,j)=>`<li><input type="checkbox" id="k${j}" data-j="${j}" ${done[sel+"-"+j]?"checked":""}><label for="k${j}">${t}</label></li>`).join("")}</ul><p class="prog">${n} de ${a.t.length} tópicos estudados</p>`;
+}
+bar.addEventListener("click",e=>{const b=e.target.closest("button");if(b){sel=+b.dataset.i;draw()}});
+panel.addEventListener("change",e=>{const j=e.target.dataset.j;if(j!==undefined){done[sel+"-"+j]=e.target.checked;save();draw();document.getElementById("k"+j).focus()}});
+draw();
+</script>
 </body>
 </html>
